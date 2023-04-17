@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: papotecar
+  namespace: default
+  labels:
+    app: papotecar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: papotecar
+  template:
+    metadata:
+      labels:
+        app: papotecar
+    spec:
+      containers:
+      - name: blog
+        image: ghcr.io/nkirchhoffer/peperecar:main
+        ports:
+        - containerPort: 80
+        envFrom:
+        - name: POSTGRESQL_URL
+          secretRef:
+            name: postgres
+            key: url
+        - name: POSTGRESQL_USERNAME
+          secretRef:
+            name: postgres
+            key: username
+        - name: POSTGRESQL_PASSWORD
+          secretRef:
+            name: postgres
+            key: password
+      - name: postgresdb
+        image: postgres
+        envFrom:
+          - name: POSTGRES_PASSWORD
+            secretRef:
+              name: postgres
+              key: password
