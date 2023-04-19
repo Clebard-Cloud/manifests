@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: ghcr.io/nkirchhoffer/peperecar:main
+        image: ghcr.io/papotecarynov/papote-car-back:main
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
