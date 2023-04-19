@@ -16,27 +16,43 @@ spec:
         app: papotecar
     spec:
       containers:
-      - name: blog
+      - name: app
         image: ghcr.io/nkirchhoffer/peperecar:main
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
-        envFrom:
+        - containerPort: 8080
+        env:
         - name: POSTGRESQL_URL
-          secretRef:
-            name: postgres
-            key: url
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: url
         - name: POSTGRESQL_USERNAME
-          secretRef:
-            name: postgres
-            key: username
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: username
         - name: POSTGRESQL_PASSWORD
-          secretRef:
-            name: postgres
-            key: password
-      - name: postgresdb
-        image: postgres
-        envFrom:
-          - name: POSTGRES_PASSWORD
-            secretRef:
+          valueFrom:
+            secretKeyRef:
               name: postgres
               key: password
+      - name: postgresdb
+        image: postgres:latest
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: password
+          - name: PGDATA
+            value: "/var/lib/postgresql/data/pgdata"
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgresql
+      imagePullSecrets:
+      - name: regcred
