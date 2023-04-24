@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog-staging
+  name: blog
   namespace: default
   labels:
     app: blog
