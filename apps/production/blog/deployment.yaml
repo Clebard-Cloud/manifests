@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  namespace: default
+  labels:
+    app: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+      - name: blog
+        image: ghcr.io/clebard-cloud/blog:main-574f1024506e41560f47eb58b329e252856a8c0b-3
+        ports:
+        - containerPort: 80
