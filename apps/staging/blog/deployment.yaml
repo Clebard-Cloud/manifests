@@ -4,16 +4,16 @@ metadata:
   name: blog-staging
   namespace: default
   labels:
-    app: blog
+    app: blog-staging
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog
+      app: blog-staging
   template:
     metadata:
       labels:
-        app: blog
+        app: blog-staging
     spec:
       containers:
       - name: blog
