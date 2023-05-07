@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: blog
-        image: ghcr.io/clebard-cloud/blog:develop-970bddbed35c4b5ea7f3870b14a3fc442199ee94-11
+        image: ghcr.io/clebard-cloud/blog:develop-df7cf4d835b91783d53aa6b4619670d2394ae56d-12
         ports:
         - containerPort: 80
