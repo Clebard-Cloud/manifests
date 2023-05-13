@@ -27,16 +27,3 @@ spec:
       - name: vaultwarden-data
         persistentVolumeClaim:
           claimName: vaultwarden-data
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: vaultwarden
-spec:
-  selector:
-    app: vaultwarden
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: LoadBalancer
