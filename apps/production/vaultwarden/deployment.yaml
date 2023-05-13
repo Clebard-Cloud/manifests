@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaultwarden
+  namespace: default
+  labels:
+    app: vaultwarden
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaultwarden
+  template:
+    metadata:
+      labels:
+        app: vaultwarden
+    spec:
+      containers:
+      - name: vaultwarden
+        image: ghcr.io/dani-garcia/vaultwarden:1.28.1-alpine
+        volumes:
+        - name: vaultwarden-data
+          mountPath: /data
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: vaultwarden-data
+        persistentVolumeClaim:
+          claimName: bitwarden-data
